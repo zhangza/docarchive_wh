@@ -1,0 +1,169 @@
+// ============================================================
+// Design Token —— 全局唯一色值/尺寸来源，组件禁止硬编码色值
+// 主题：医保监管 · 深蓝科技风（专业、可信、克制）
+// ============================================================
+:root {
+  // -------- 品牌主色 --------
+  --zh-primary: #1668dc;
+  --zh-primary-hover: #3c88ff;
+  --zh-primary-active: #0f52b3;
+  --zh-primary-light: #e8f1ff;
+  --zh-primary-lighter: #f3f8ff;
+  --zh-accent: #13c2c2;
+  --zh-accent-light: #e6fffb;
+  --zh-purple: #722ed1;
+  --zh-purple-light: #f6efff;
+
+  // -------- 语义状态色 --------
+  --zh-success: #12a150;
+  --zh-success-light: #e7f8ee;
+  --zh-warning: #e8a30c;
+  --zh-warning-light: #fff7e6;
+  --zh-danger: #e5484d;
+  --zh-danger-light: #ffefef;
+  --zh-info: #5a7189;
+  --zh-info-light: #eef2f7;
+
+  // -------- 风险等级色（业务语义，全局统一） --------
+  --zh-risk-high: #e5484d;
+  --zh-risk-high-bg: #fff1f1;
+  --zh-risk-high-border: #ffccc7;
+  --zh-risk-mid: #e8a30c;
+  --zh-risk-mid-bg: #fff8e8;
+  --zh-risk-mid-border: #ffe0a3;
+  --zh-risk-low: #12a150;
+  --zh-risk-low-bg: #eafaf0;
+  --zh-risk-low-border: #b7ebc9;
+  --zh-overdue: #d4380d;
+
+  // -------- 文本 --------
+  --zh-text-primary: #1a2230;
+  --zh-text-regular: #43516b;
+  --zh-text-secondary: #6b7a90;
+  --zh-text-placeholder: #9aa7b8;
+  --zh-text-inverse: #ffffff;
+
+  // -------- 背景 / 边框 --------
+  --zh-bg-page: #f2f5fa;
+  --zh-bg-card: #ffffff;
+  --zh-bg-hover: #f5f9ff;
+  --zh-bg-soft: #f8fafd;
+  --zh-bg-header: linear-gradient(96deg, #0a2f6b 0%, #1668dc 58%, #1495b3 100%);
+  --zh-bg-sider: #0d2647;
+  --zh-bg-sider-active: rgba(22, 104, 220, 0.28);
+  --zh-border: #e2e8f2;
+  --zh-border-light: #eef1f7;
+  --zh-border-strong: #cdd7e6;
+
+  // -------- 圆角 / 阴影 --------
+  --zh-radius-sm: 4px;
+  --zh-radius: 8px;
+  --zh-radius-lg: 12px;
+  --zh-radius-xl: 16px;
+  --zh-shadow-xs: 0 1px 2px rgba(16, 35, 68, 0.05);
+  --zh-shadow-sm: 0 2px 8px rgba(16, 35, 68, 0.06);
+  --zh-shadow: 0 4px 16px rgba(16, 35, 68, 0.08);
+  --zh-shadow-lg: 0 10px 30px rgba(16, 35, 68, 0.12);
+
+  // -------- 间距 --------
+  --zh-gap-xs: 4px;
+  --zh-gap-sm: 8px;
+  --zh-gap: 12px;
+  --zh-gap-md: 16px;
+  --zh-gap-lg: 20px;
+  --zh-gap-xl: 24px;
+
+  // -------- 字体 --------
+  --zh-font: 'Microsoft YaHei', 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+  --zh-font-num: 'DIN Alternate', 'Bahnschrift', 'Segoe UI', var(--zh-font);
+  --zh-fs-xs: 12px;
+  --zh-fs-sm: 13px;
+  --zh-fs: 14px;
+  --zh-fs-md: 15px;
+  --zh-fs-lg: 16px;
+  --zh-fs-xl: 18px;
+  --zh-fs-title: 20px;
+
+  // -------- 布局尺寸 --------
+  --zh-header-h: 58px;
+  --zh-sider-w: 226px;
+  --zh-sider-w-collapsed: 62px;
+
+  // ============================================================
+  // 文书生成智能体专属：公文纸墨主题（Paper & Ink）
+  // 用于纸样墙、批注校对、印章、档案卷盒等拟物化视觉
+  // ============================================================
+  --doc-paper: #fdfcf7;           // 公文纸底
+  --doc-paper-warm: #faf6ec;      // 陈年纸
+  --doc-paper-edge: #ece5d5;      // 纸边
+  --doc-paper-line: #e8e0cd;      // 纸纹线
+  --doc-ink: #1f2328;             // 墨色
+  --doc-ink-soft: #4a5260;        // 淡墨
+  --doc-ink-faint: #8c93a1;       // 极淡墨
+  --doc-vermilion: #c8161d;       // 朱红（红头/印章）
+  --doc-vermilion-soft: #e03b42;
+  --doc-vermilion-bg: #fdf0f0;
+  --doc-seal: rgba(200, 22, 29, 0.82);
+  --doc-gold: #b8892b;            // 档案烫金
+  --doc-gold-light: #f5ecd8;
+  --doc-shadow-paper: 0 1px 2px rgba(60, 48, 24, .08), 0 6px 18px rgba(60, 48, 24, .1);
+  --doc-shadow-paper-lift: 0 6px 12px rgba(60, 48, 24, .12), 0 18px 40px rgba(60, 48, 24, .16);
+  --doc-font-song: 'Source Han Serif SC', 'Songti SC', 'SimSun', 宋体, serif;
+  --doc-font-fang: 'FangSong', 仿宋, 'STFangsong', serif;
+  --doc-font-hei: 'Source Han Sans SC', 'SimHei', 黑体, sans-serif;
+
+  // 档案卷盒脊色（按状态）
+  --doc-box-assembling: #3c88ff;
+  --doc-box-pending: #e8a30c;
+  --doc-box-archived: #12a150;
+  --doc-box-moved: #5a7189;
+  --doc-box-borrowed: #d4680c;
+
+  // ============================================================
+  // 成果宣教智能体专属：统一浅色业务主题
+  // ============================================================
+  --viz-bg: #ffffff;
+  --viz-bg-2: #f7faff;
+  --viz-panel: #ffffff;
+  --viz-panel-solid: #ffffff;
+  --viz-line: #e2e8f2;
+  --viz-line-strong: #b8d4f7;
+  --viz-cyan: #0891b2;
+  --viz-blue: #1668dc;
+  --viz-violet: #722ed1;
+  --viz-pink: #d43878;
+  --viz-lime: #12a150;
+  --viz-amber: #d48806;
+  --viz-red: #d4380d;
+  --viz-text: #1a2230;
+  --viz-text-dim: #43516b;
+  --viz-text-faint: #8290a5;
+  --viz-glow-cyan: 0 0 12px rgba(8, 145, 178, .16);
+  --viz-glow-violet: 0 0 12px rgba(114, 46, 209, .14);
+  --viz-glow-lime: 0 0 12px rgba(18, 161, 80, .14);
+
+  // -------- Element Plus 主题覆盖 --------
+  --el-color-primary: var(--zh-primary);
+  --el-color-primary-light-3: #4b90ea;
+  --el-color-primary-light-5: #83b3f1;
+  --el-color-primary-light-7: #b8d4f7;
+  --el-color-primary-light-8: #d3e4fb;
+  --el-color-primary-light-9: var(--zh-primary-light);
+  --el-color-primary-dark-2: var(--zh-primary-active);
+  --el-color-success: var(--zh-success);
+  --el-color-warning: var(--zh-warning);
+  --el-color-danger: var(--zh-danger);
+  --el-color-error: var(--zh-danger);
+  --el-color-info: var(--zh-info);
+  --el-text-color-primary: var(--zh-text-primary);
+  --el-text-color-regular: var(--zh-text-regular);
+  --el-text-color-secondary: var(--zh-text-secondary);
+  --el-border-color: var(--zh-border);
+  --el-border-color-lighter: var(--zh-border-light);
+  --el-border-radius-base: var(--zh-radius-sm);
+  --el-font-family: var(--zh-font);
+  --el-font-size-base: var(--zh-fs);
+  --el-table-header-bg-color: #f5f8fd;
+  --el-table-row-hover-bg-color: var(--zh-bg-hover);
+  --el-fill-color-light: var(--zh-bg-soft);
+}

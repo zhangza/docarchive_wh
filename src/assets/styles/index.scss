@@ -1,0 +1,338 @@
+@use './tokens.scss';
+@use './viz.scss';
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--zh-font);
+  font-size: var(--zh-fs);
+  color: var(--zh-text-primary);
+  background: var(--zh-bg-page);
+  -webkit-font-smoothing: antialiased;
+}
+
+// ============ 滚动条 ============
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #c8d2e0;
+  border-radius: 8px;
+  &:hover {
+    background: #aebbcd;
+  }
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+// ============ 页面通用骨架 ============
+.zh-page {
+  padding: var(--zh-gap-md);
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--zh-gap);
+}
+
+// 卡片
+.section-card {
+  background: var(--zh-bg-card);
+  border: 1px solid var(--zh-border-light);
+  border-radius: var(--zh-radius-lg);
+  box-shadow: var(--zh-shadow-xs);
+  padding: var(--zh-gap-md) var(--zh-gap-lg) var(--zh-gap-lg);
+  transition: box-shadow 0.25s ease;
+
+  &--flat {
+    padding: 0;
+    overflow: hidden;
+  }
+  &--tight {
+    padding: var(--zh-gap) var(--zh-gap-md);
+  }
+  &:hover {
+    box-shadow: var(--zh-shadow-sm);
+  }
+}
+
+// 区标题（装饰点 + 标题 + 说明 + 右侧操作）
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: var(--zh-gap-sm);
+  margin-bottom: var(--zh-gap-md);
+  min-height: 26px;
+
+  &__dot {
+    width: 4px;
+    height: 15px;
+    border-radius: 3px;
+    background: linear-gradient(180deg, var(--zh-primary), var(--zh-accent));
+    flex-shrink: 0;
+  }
+  &__text {
+    font-size: var(--zh-fs-lg);
+    font-weight: 600;
+    color: var(--zh-text-primary);
+    letter-spacing: 0.4px;
+  }
+  &__desc {
+    font-size: var(--zh-fs-xs);
+    color: var(--zh-text-secondary);
+    padding-left: 2px;
+  }
+  &__extra {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: var(--zh-gap-sm);
+  }
+}
+
+// 查询表单
+// 采用自适应栅格：单列最小宽度由 --zh-qf-col 控制，容器变窄时自动减列，
+// 避免 el-form 默认块级流导致每个查询条件独占一行。
+// 本文件为全局样式（main.ts 引入），无需 :deep()。
+.query-form {
+  --zh-qf-col: 272px;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--zh-qf-col), 1fr));
+  gap: var(--zh-gap-sm) var(--zh-gap-md);
+  align-items: start;
+
+  .el-form-item {
+    margin: 0;
+  }
+
+  // 控件在栅格内撑满，避免宽度参差
+  .el-form-item__content {
+    > .el-input,
+    > .el-select,
+    > .el-date-editor,
+    > .el-input-number,
+    > .el-cascader,
+    > .el-autocomplete,
+    > .el-radio-group,
+    > .el-checkbox-group {
+      width: 100%;
+    }
+  }
+
+  // 日期区间、金额区间等宽控件占两列
+  .el-form-item.is-wide {
+    grid-column: span 2;
+  }
+
+  // 操作区独占整行、右对齐，并与条件区做视觉分隔
+  &__actions {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: var(--zh-gap-sm);
+    margin: var(--zh-gap-xs) 0 0;
+    padding-top: var(--zh-gap);
+    border-top: 1px dashed var(--zh-border-light);
+
+    // 以 el-form-item 形态使用时，抹掉其内建 label / content 布局
+    > .el-form-item__label { display: none; }
+    > .el-form-item__content {
+      margin-left: 0 !important;
+      width: 100%;
+      justify-content: flex-end;
+    }
+  }
+
+  @media (max-width: 1180px) {
+    --zh-qf-col: 236px;
+    gap: var(--zh-gap-sm) var(--zh-gap);
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    .el-form-item.is-wide { grid-column: auto; }
+  }
+}
+
+// 表格工具条
+.table-toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--zh-gap-sm);
+  margin-bottom: var(--zh-gap);
+  flex-wrap: wrap;
+
+  &__right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: var(--zh-gap-sm);
+  }
+}
+
+// 分页
+.pager {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: var(--zh-gap-md);
+}
+
+// 数字（等宽）
+.num {
+  font-family: var(--zh-font-num);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.2px;
+}
+.num--money {
+  font-family: var(--zh-font-num);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--zh-danger);
+}
+.num--money-mild {
+  font-family: var(--zh-font-num);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--zh-text-primary);
+}
+
+// 文本工具
+.text-muted {
+  color: var(--zh-text-secondary);
+}
+.text-mini {
+  font-size: var(--zh-fs-xs);
+  color: var(--zh-text-secondary);
+}
+.text-link {
+  color: var(--zh-primary);
+  cursor: pointer;
+  &:hover {
+    color: var(--zh-primary-hover);
+    text-decoration: underline;
+  }
+}
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// 空状态
+.zh-empty {
+  padding: 40px 0;
+  text-align: center;
+  color: var(--zh-text-placeholder);
+  font-size: var(--zh-fs-sm);
+}
+
+// ============ Element Plus 细节优化 ============
+.el-table {
+  font-size: var(--zh-fs-sm);
+  th.el-table__cell {
+    font-weight: 600;
+    color: var(--zh-text-regular);
+    background: #f5f8fd !important;
+  }
+  .el-table__cell {
+    padding: 8px 0;
+  }
+}
+.el-button {
+  font-weight: 500;
+}
+.el-tag {
+  font-weight: 500;
+  border-radius: var(--zh-radius-sm);
+}
+.el-card {
+  border-radius: var(--zh-radius-lg);
+}
+.el-dialog {
+  border-radius: var(--zh-radius-lg);
+  overflow: hidden;
+  .el-dialog__header {
+    margin-right: 0;
+    padding: 14px 20px;
+    background: var(--zh-bg-soft);
+    border-bottom: 1px solid var(--zh-border-light);
+    .el-dialog__title {
+      font-size: var(--zh-fs-lg);
+      font-weight: 600;
+    }
+  }
+  .el-dialog__body {
+    padding: 18px 20px;
+  }
+  .el-dialog__footer {
+    padding: 12px 20px;
+    border-top: 1px solid var(--zh-border-light);
+  }
+}
+.el-drawer__header {
+  margin-bottom: 0;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--zh-border-light);
+  font-weight: 600;
+  color: var(--zh-text-primary);
+}
+.el-descriptions__label {
+  color: var(--zh-text-secondary) !important;
+  font-weight: 500 !important;
+}
+.el-tabs__item {
+  font-weight: 500;
+}
+
+// 焦点可见（可访问性）
+:focus-visible {
+  outline: 2px solid var(--zh-primary);
+  outline-offset: 2px;
+}
+
+// 动效降级
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+// 动画
+@keyframes zh-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.zh-fade-up {
+  animation: zh-fade-up 0.35s ease both;
+}
+
+@keyframes zh-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
