@@ -1,1 +1,0 @@
-import{g as e,p as s}from"./request-BYkKyLQq.js";const r=()=>e("/compare/overview"),t=a=>e("/compare/tasks",a),m=a=>s("/compare/task/create",a),c=a=>e("/compare/anomalies",a),p=a=>s("/compare/anomalies/transfer",a);export{t as a,c as b,m as c,r as g,p as t};

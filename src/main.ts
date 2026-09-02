@@ -22,7 +22,20 @@ app.use(createPinia())
 app.use(router)
 app.use(ElementPlus, { locale: zhCn, size: 'default' })
 
-router.isReady().then(() => {
+/**
+ * 生产环境 Mock：
+ * `vite-plugin-mock` 只在 Vite 开发服务器生效，静态部署（Netlify / Nginx）后
+ * `/api/**` 无人提供服务会直接 404。此处在挂载前装载 axios adapter 层的 Mock，
+ * 对接真实后端时把 `VITE_USE_MOCK` 改为 `false` 即可关闭（代码也不会被打包）。
+ */
+async function bootstrap() {
+  if (import.meta.env.PROD && import.meta.env.VITE_USE_MOCK === 'true') {
+    const { setupProdMock } = await import('@/mock/prodMock')
+    setupProdMock()
+  }
+  await router.isReady()
   app.mount('#app')
   document.querySelector('.app-loading')?.remove()
-})
+}
+
+bootstrap()

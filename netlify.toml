@@ -1,0 +1,29 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# SPA 兜底：本项目为 hash 路由，仅需保证任意路径都返回 index.html
+#
+# 说明：`/api/**` 并不存在真实服务端。生产环境的接口数据由 `src/mock/prodMock.ts`
+# 在 **axios adapter 层**直接返回，不产生任何网络请求，因此接口能正常工作。
+# 下面这条 `/api/*` 规则必须放在通用兜底之前，作用是：让「未被 Mock 覆盖」的
+# 接口显式返回 404，而不是被 SPA 兜底静默返回一份 index.html 的 HTML
+# ——否则前端会拿到 HTML 去做 JSON 解析，报出难以定位的错误。
+# 注：在浏览器地址栏直接访问 /api/xxx 属于预期的 404，不代表页面接口异常。
+[[redirects]]
+  from = "/api/*"
+  to = "/index.html"
+  status = 404
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
